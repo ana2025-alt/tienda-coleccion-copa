@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colección Copa 2026 - Fase 1</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <span class="icon-copa">🏆</span> COLECCIÓN COPA 2026
+        </div>
+        <div class="search-bar">
+            <input type="text" id="busqueda" placeholder="Buscar productos..." disabled>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="products-area">
+            <h2 class="section-title">Merchandising Oficial del Mundial</h2>
+            <div id="contenedor-productos" class="grid-products">
+                </div>
+        </section>
+
+        <aside class="cart-sidebar">
+            <div class="cart-header">TU CARRITO</div>
+            <div id="items-carrito">
+                <p class="empty-msg">El carrito está vacío</p>
+            </div>
+            <div class="cart-summary">
+                <div class="summary-line"><span>Subtotal</span> <span id="subtotal-val">$0</span></div>
+                <div id="promo-msg" class="promo-badge">PROMO 10% APLICADA (3+ LÍNEAS)</div>
+                <div class="summary-line total"><span>Total</span> <span id="total-val">$0</span></div>
+                <button class="btn-checkout" disabled>CONFIRMAR PEDIDO</button>
+            </div>
+        </aside>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
