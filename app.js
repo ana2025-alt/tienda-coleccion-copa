@@ -1,4 +1,4 @@
-// T3 - Datos Mockeados Completos (Sello Colección Copa)
+/// T3 - Datos Mockeados Completos (Sello Colección Copa)
 const productos = [
     { id: 1, nombre: "Camiseta México - Colección Copa", precio: 95, stock: 8, imagen: "imagenes/image_2ad539.jpg" },
     { id: 2, nombre: "Camiseta Argentina - Colección Copa", precio: 110, stock: 3, imagen: "imagenes/image_2ad1f3.jpg" },
@@ -16,20 +16,26 @@ const productos = [
 
 let carrito = [];
 
-// T4 - Render de productos en la grilla (Iteraciones)
-function renderizarProductos() {
+// T4 - Render de productos (Modificada para aceptar filtros)
+function renderizarProductos(listaAMostrar = productos) {
     const contenedor = document.getElementById('contenedor-productos');
-    if(!contenedor) return; // Seguridad por si no existe el ID
+    if(!contenedor) return; 
     
     contenedor.innerHTML = "";
-    productos.forEach(p => {
+    
+    if(listaAMostrar.length === 0) {
+        contenedor.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 20px;">No se encontraron productos.</p>`;
+        return;
+    }
+
+    listaAMostrar.forEach(p => {
         const agotado = p.stock === 0;
         contenedor.innerHTML += `
             <div class="product-card">
                 <img src="${p.imagen}" alt="${p.nombre}">
                 <h3>${p.nombre}</h3>
                 <span class="price">$${p.precio}</span>
-                <p style="font-size: 0.75rem; color: #666; margin-bottom: 10px;">Stock: ${p.stock}</p>
+                <p class="stock-label">Stock: ${p.stock}</p>
                 <button class="btn-add" onclick="agregarAlCarrito(${p.id})" ${agotado ? 'disabled' : ''}>
                     ${agotado ? 'SIN STOCK' : 'AÑADIR'}
                 </button>
@@ -37,20 +43,36 @@ function renderizarProductos() {
     });
 }
 
+// NUEVO: T6 - Lógica del Buscador
+const buscador = document.getElementById('buscador');
+if(buscador) {
+    buscador.addEventListener('input', () => {
+        const texto = buscador.value.toLowerCase();
+        const filtrados = productos.filter(p => 
+            p.nombre.toLowerCase().includes(texto)
+        );
+        renderizarProductos(filtrados); // Re-dibuja solo los que coinciden
+    });
+}
+
 // T5 - Lógica para añadir al carrito
 function agregarAlCarrito(id) {
     const p = productos.find(x => x.id === id);
     const item = carrito.find(x => x.id === id);
+    
     if (item) {
-        if (item.cantidad < p.stock) item.cantidad++;
-        else alert("Límite de stock alcanzado para este producto");
+        if (item.cantidad < p.stock) {
+            item.cantidad++;
+        } else {
+            alert("Límite de stock alcanzado para este producto");
+        }
     } else {
         carrito.push({ ...p, cantidad: 1 });
     }
     renderizarCarrito();
 }
 
-// T7 y T8 - Renderizado del carrito y cálculo de funciones
+// T7 y T8 - Renderizado del carrito y cálculos
 function renderizarCarrito() {
     const cont = document.getElementById('items-carrito');
     const subElem = document.getElementById('subtotal-val');
@@ -65,13 +87,13 @@ function renderizarCarrito() {
     carrito.forEach(item => {
         subtotal += item.precio * item.cantidad;
         cont.innerHTML += `
-            <div class="item-carrito" style="display: flex; justify-content: space-between; margin-bottom: 5px; border-bottom: 1px solid #eee;">
+            <div class="item-carrito">
                 <span>${item.nombre} (x${item.cantidad})</span>
-                <span>$${item.precio * item.cantidad}</span>
+                <span>$${(item.precio * item.cantidad).toFixed(2)}</span>
             </div>`;
     });
 
-    // Lógica de Descuento (Requisito: Procesos con condicionales)
+    // Descuento del 10% si hay 3 o más artículos diferentes
     let desc = carrito.length >= 3 ? subtotal * 0.1 : 0;
     if(promo) promo.style.display = desc > 0 ? "block" : "none";
 
@@ -79,12 +101,12 @@ function renderizarCarrito() {
     totElem.innerText = `$${(subtotal - desc).toFixed(2)}`;
 }
 
-// NUEVO: Función para Capturar Datos del Cliente (Punto 4 de la Fase 2)
+// T9 - Finalizar Compra y Captura de Datos
 function finalizarCompra() {
     const nombre = document.getElementById('nombre-cliente').value;
     const correo = document.getElementById('correo-cliente').value;
 
-    if (nombre === "" || correo === "") {
+    if (nombre.trim() === "" || correo.trim() === "") {
         alert("Por favor, ingresa tus datos para procesar la compra.");
         return;
     }
@@ -94,9 +116,9 @@ function finalizarCompra() {
         return;
     }
 
-    alert(`¡Gracias por tu compra, ${nombre}! Te enviaremos el recibo a ${correo}.`);
+    alert(`¡Venta exitosa!\n\nGracias por tu compra, ${nombre}.\nEnviaremos el recibo a: ${correo}`);
     
-    // Limpiar todo después de la compra
+    // Limpiar después de la compra
     carrito = [];
     document.getElementById('nombre-cliente').value = "";
     document.getElementById('correo-cliente').value = "";
