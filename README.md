@@ -37,3 +37,8 @@ Aquí están las capturas de mi progreso:
 ![Carrito](imagenes/captura2.png)
 ![Código](imagenes/captura3.png)
 ![Formulario](imagenes/captura4.png) 
+
+### 🔄 Últimos Ajustes Realizados:
+- **Interactividad:** Activación del buscador principal.
+- **UI/UX:** Incorporación de fondo animado mundialista.
+- **Seguridad:** Validación de formularios de envío. 
