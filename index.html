@@ -9,12 +9,20 @@
 </head>
 <body>
 
+    <div class="area-flotante">
+        <span class="flotante" style="left: 5%; font-size: 50px; animation-duration: 20s;">⚽</span>
+        <span class="flotante" style="left: 25%; font-size: 30px; animation-duration: 15s; animation-delay: 2s;">🏆</span>
+        <span class="flotante" style="left: 45%; font-size: 60px; animation-duration: 25s; animation-delay: 5s;">⚽</span>
+        <span class="flotante" style="left: 70%; font-size: 35px; animation-duration: 18s; animation-delay: 1s;">🏆</span>
+        <span class="flotante" style="left: 85%; font-size: 55px; animation-duration: 22s; animation-delay: 7s;">⚽</span>
+    </div>
+
     <nav class="navbar">
         <div class="logo">
             <span class="icon-copa">🏆</span> COLECCIÓN COPA 2026
         </div>
         <div class="search-bar">
-            <input type="text" id="busqueda" placeholder="Buscar productos..." disabled>
+            <input type="text" id="buscador" placeholder="Buscar productos..." class="input-form">
         </div>
     </nav>
 
@@ -37,8 +45,8 @@
                 <div id="promo-msg" class="promo-badge" style="display: none;">PROMO 10% APLICADA (3+ LÍNEAS)</div>
                 <div class="summary-line total"><span>Total</span> <span id="total-val">$0</span></div>
                 
-                <div class="checkout-form" style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #ddd;">
-                    <p style="font-size: 0.8rem; font-weight: bold; margin-bottom: 10px;">DATOS DE ENVÍO</p>
+                <div class="checkout-form" style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <p style="font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; color: #ffd700;">DATOS DE ENVÍO</p>
                     <input type="text" id="nombre-cliente" placeholder="Nombre completo" class="input-form">
                     <input type="email" id="correo-cliente" placeholder="Correo electrónico" class="input-form">
                     
@@ -52,4 +60,4 @@
 
     <script src="app.js"></script>
 </body>
-</html>
+</html> 

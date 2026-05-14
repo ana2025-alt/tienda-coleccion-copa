@@ -1,129 +1,174 @@
-/* Reset y Fuentes */
+/* --- RESET Y FUENTES --- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Roboto', sans-serif; background-color: #f8f9fa; color: #1a1a1a; }
 
-/* Navegación */
-.navbar { background: #001f5b; color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+body { 
+    font-family: 'Roboto', sans-serif; 
+    /* Fondo con degradado oscuro y el Estadio de fondo */
+    background: linear-gradient(rgba(0, 10, 30, 0.85), rgba(0, 10, 30, 0.95)), 
+                url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80&w=2000');
+    background-attachment: fixed;
+    background-size: cover;
+    color: #ffffff; 
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* --- ELEMENTOS FLOTANTES (Balones y Copas) --- */
+.area-flotante {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.flotante {
+    position: absolute;
+    opacity: 0.2;
+    filter: drop-shadow(0 0 10px rgba(255,255,255,0.4));
+    animation: flotar 15s linear infinite;
+    user-select: none;
+}
+
+@keyframes flotar {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.2; }
+    90% { opacity: 0.2; }
+    100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+}
+
+/* --- NAVEGACIÓN --- */
+.navbar { 
+    background: rgba(0, 31, 91, 0.9); 
+    backdrop-filter: blur(10px);
+    color: white; 
+    padding: 15px 5%; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    position: sticky; 
+    top: 0; 
+    z-index: 100; 
+    border-bottom: 1px solid rgba(255,215,0,0.3);
+}
 
 .logo { 
-    display: flex; 
-    align-items: center; 
-    gap: 10px; 
-    font-weight: 900; 
-    font-size: 1.5rem; 
-    letter-spacing: 1px; 
+    display: flex; align-items: center; gap: 10px; 
+    font-weight: 900; font-size: 1.5rem; letter-spacing: 1px;
 }
 
 .icon-copa { 
     font-size: 1.8rem; 
-    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5)); 
+    filter: drop-shadow(0 0 8px #ffd700); 
 }
 
-/* Contenedor Principal */
+/* --- BUSCADOR (Nuevo Estilo) --- */
+.search-container {
+    padding: 20px 5% 0;
+    text-align: center;
+}
+
+.input-form#buscador {
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 1.1rem;
+    padding: 15px;
+}
+
+.input-form#buscador::placeholder { color: rgba(255,255,255,0.6); }
+
+/* --- CONTENEDOR PRINCIPAL --- */
 .container { display: flex; padding: 30px 5%; gap: 30px; }
 .products-area { flex: 3; }
-.section-title { margin-bottom: 25px; font-weight: 900; text-transform: uppercase; border-bottom: 3px solid #001f5b; display: inline-block; }
+.section-title { 
+    margin-bottom: 25px; font-weight: 900; 
+    text-transform: uppercase; border-bottom: 3px solid #ffd700; 
+    display: inline-block; color: #ffd700;
+}
 
-/* Grilla de Productos */
-.grid-products { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-
+/* --- TARJETAS GLASSMORPHISM (Estilo de la imagen) --- */
 .product-card { 
-    background: white; 
-    border: 1px solid #eee; 
-    border-radius: 8px; 
-    padding: 15px; 
-    transition: 0.3s; 
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    border-radius: 15px; 
+    padding: 20px; 
+    transition: 0.4s; 
     text-align: center; 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.product-card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.05); transform: translateY(-5px); }
+.product-card:hover { 
+    box-shadow: 0 0 30px rgba(0, 150, 255, 0.2); 
+    transform: translateY(-10px); 
+    border-color: #ffd700;
+}
 
-/* Ajuste para las imágenes */
 .product-card img { 
-    width: 100%; 
-    height: 250px; 
-    object-fit: cover; 
-    border-radius: 4px; 
+    width: 100%; height: 230px; 
+    object-fit: contain; /* Para que la camiseta no se corte */
+    border-radius: 8px; 
     margin-bottom: 15px;
-    background-color: #000; 
+    background: transparent;
 }
 
-/* Botones */
-.btn-add { background: #001f5b; color: white; border: none; padding: 10px; width: 100%; border-radius: 4px; font-weight: 700; cursor: pointer; text-transform: uppercase; }
-.btn-add:disabled { background: #ccc; cursor: not-allowed; }
+.product-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
 
-/* Sidebar del Carrito */
-.cart-sidebar { flex: 1; background: white; border: 1px solid #eee; border-radius: 8px; padding: 20px; height: fit-content; position: sticky; top: 100px; }
-.cart-header { font-weight: 900; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
-.item-carrito { display: flex; justify-content: space-between; font-size: 0.9rem; padding: 8px 0; border-bottom: 1px solid #f9f9f9; }
-
-.promo-badge { background: #e6fffa; color: #2c7a7b; padding: 5px; font-size: 0.8rem; font-weight: 700; margin-bottom: 15px; display: none; text-align: center; }
-
-.total { font-weight: 900; font-size: 1.2rem; color: #001f5b; padding: 10px 0; }
-
-/* --- Ajustes Fase 2: Formulario y Estética --- */
-
-/* Estilo para los inputs de captura de datos */
-.input-form {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 0.9rem;
-    transition: border-color 0.3s;
-    outline: none;
-}
-
-.input-form:focus {
-    border-color: #001f5b; /* Resalta con tu azul de marca */
-    box-shadow: 0 0 5px rgba(0, 31, 91, 0.2);
-}
-
-/* Botón de Confirmar Pedido */
-.btn-checkout {
-    background: #28a745; /* Un verde éxito para la conversión */
-    color: white;
-    border: none;
-    padding: 15px;
-    width: 100%;
-    border-radius: 6px;
-    font-weight: 900;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+/* --- BOTONES --- */
+.btn-add { 
+    background: linear-gradient(45deg, #001f5b, #00509d);
+    color: white; border: none; padding: 12px; 
+    width: 100%; border-radius: 8px; font-weight: 700; 
+    cursor: pointer; text-transform: uppercase; 
     transition: 0.3s;
-    margin-top: 10px;
 }
 
-.btn-checkout:hover {
-    background: #218838;
-    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+.btn-add:hover { background: #ffd700; color: #001f5b; }
+
+.btn-add:disabled { background: rgba(255,255,255,0.1); color: #666; }
+
+/* --- SIDEBAR DEL CARRITO --- */
+.cart-sidebar { 
+    flex: 1; 
+    background: rgba(10, 20, 40, 0.8); 
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.1); 
+    border-radius: 15px; 
+    padding: 25px; 
+    height: fit-content; 
+    position: sticky; top: 100px; 
 }
 
-.btn-checkout:active {
-    transform: scale(0.98);
+.cart-header { font-weight: 900; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px; color: #ffd700; }
+
+.item-carrito { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 10px 0; }
+
+.total { font-weight: 900; font-size: 1.4rem; color: #ffd700; padding: 15px 0; border-top: 2px solid rgba(255,255,255,0.1); margin-top: 10px; }
+
+/* --- FORMULARIO --- */
+.input-form {
+    width: 100%; padding: 12px; margin-bottom: 12px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px; color: white; outline: none;
 }
 
-/* Estilo para los mensajes de stock */
-.stock-label {
-    font-size: 0.75rem;
-    color: #666;
-    margin-bottom: 10px;
-    font-weight: 500;
+.input-form:focus { border-color: #ffd700; box-shadow: 0 0 10px rgba(255,215,0,0.2); }
+
+.btn-checkout {
+    background: linear-gradient(45deg, #28a745, #34ce57);
+    color: white; padding: 18px; width: 100%; border-radius: 10px;
+    font-weight: 900; cursor: pointer; text-transform: uppercase;
+    transition: 0.3s; margin-top: 15px; border: none;
 }
 
-/* Responsividad básica para tablets/celulares */
+.btn-checkout:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(40, 167, 69, 0.4); }
+
+/* --- RESPONSIVIDAD --- */
 @media (max-width: 900px) {
-    .container {
-        flex-direction: column;
-    }
-    .cart-sidebar {
-        position: static;
-        width: 100%;
-    }
-}
+    .container { flex-direction: column; }
+    .cart-sidebar { width: 100%; position: static; }
+} 

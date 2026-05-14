@@ -104,4 +104,4 @@ function finalizarCompra() {
 }
 
 // Iniciar aplicación
-renderizarProductos();
+renderizarProductos(); 
