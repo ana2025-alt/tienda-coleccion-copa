@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colección Copa 2026 - Fase 2</title>
+    <title>Colección Copa 2026 - Edición Profesional</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
@@ -11,10 +11,12 @@
 
     <div class="area-flotante">
         <span class="flotante" style="left: 5%; font-size: 50px; animation-duration: 20s;">⚽</span>
-        <span class="flotante" style="left: 25%; font-size: 30px; animation-duration: 15s; animation-delay: 2s;">🏆</span>
+        <span class="flotante" style="left: 15%; font-size: 25px; animation-duration: 12s; animation-delay: 2s;">🏆</span>
+        <span class="flotante" style="left: 25%; font-size: 40px; animation-duration: 15s; animation-delay: 4s;">🥤</span>
         <span class="flotante" style="left: 45%; font-size: 60px; animation-duration: 25s; animation-delay: 5s;">⚽</span>
-        <span class="flotante" style="left: 70%; font-size: 35px; animation-duration: 18s; animation-delay: 1s;">🏆</span>
-        <span class="flotante" style="left: 85%; font-size: 55px; animation-duration: 22s; animation-delay: 7s;">⚽</span>
+        <span class="flotante" style="left: 60%; font-size: 35px; animation-duration: 18s; animation-delay: 1s;">🏆</span>
+        <span class="flotante" style="left: 75%; font-size: 45px; animation-duration: 22s; animation-delay: 3s;">🥤</span>
+        <span class="flotante" style="left: 90%; font-size: 55px; animation-duration: 20s; animation-delay: 7s;">⚽</span>
     </div>
 
     <nav class="navbar">
@@ -22,20 +24,18 @@
             <span class="icon-copa">🏆</span> COLECCIÓN COPA 2026
         </div>
         <div class="search-bar">
-            <input type="text" id="buscador" placeholder="Buscar productos..." class="input-form">
+            <input type="text" id="buscador" placeholder="Buscar camisetas, balones o termos..." class="input-form">
         </div>
     </nav>
 
     <main class="container">
         <section class="products-area">
-            <h2 class="section-title">Merchandising Oficial del Mundial</h2>
-            <div id="contenedor-productos" class="grid-products">
-                </div>
+            <h2 class="section-title">Merchandising Oficial</h2>
+            <div id="contenedor-productos" class="grid-products"></div>
         </section>
 
         <aside class="cart-sidebar">
             <div class="cart-header">TU CARRITO</div>
-            
             <div id="items-carrito">
                 <p class="empty-msg">El carrito está vacío</p>
             </div>
@@ -45,14 +45,11 @@
                 <div id="promo-msg" class="promo-badge" style="display: none;">PROMO 10% APLICADA (3+ LÍNEAS)</div>
                 <div class="summary-line total"><span>Total</span> <span id="total-val">$0</span></div>
                 
-                <div class="checkout-form" style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
-                    <p style="font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; color: #ffd700;">DATOS DE ENVÍO</p>
+                <div class="checkout-form">
+                    <p class="form-label">DATOS DE ENVÍO</p>
                     <input type="text" id="nombre-cliente" placeholder="Nombre completo" class="input-form">
                     <input type="email" id="correo-cliente" placeholder="Correo electrónico" class="input-form">
-                    
-                    <button class="btn-checkout" onclick="finalizarCompra()">
-                        CONFIRMAR PEDIDO
-                    </button>
+                    <button class="btn-checkout" onclick="finalizarCompra()">CONFIRMAR PEDIDO</button>
                 </div>
             </div>
         </aside>

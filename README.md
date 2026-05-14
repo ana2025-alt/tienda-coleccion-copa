@@ -42,3 +42,22 @@ Aquí están las capturas de mi progreso:
 - **Interactividad:** Activación del buscador principal.
 - **UI/UX:** Incorporación de fondo animado mundialista.
 - **Seguridad:** Validación de formularios de envío. 
+🔄 Actualización de Merchandising y Efectos Visuales
+🥤 Inclusión de Nueva Línea de Productos (Termos)
+Se expandió el catálogo de objetos en app.js para incluir artículos de hidratación oficial:
+
+Termos de Acero Inoxidable: Modelos con aislamiento térmico y diseño "Copa 2026".
+
+Edición Ejecutiva: Variantes en color negro con detalles dorados para un perfil más profesional.
+
+Balones de Colección: Se sumaron modelos retro y ediciones especiales de sedes (Canadá/USA).
+
+🎈 Sistema de Partículas Flotantes Dinámicas
+Se mejoró la experiencia inmersiva en el index.html y styles.css:
+
+Variedad de Objetos: Ahora no solo flotan balones (⚽), sino también trofeos (🏆) y termos (🥤), creando una atmósfera de tienda mundialista completa.
+
+Lógica de Animación: Cada elemento tiene un animation-duration y animation-delay diferente generado en el HTML, lo que evita que todos suban al mismo tiempo y les da un movimiento más natural y aleatorio.
+
+🌟 Efecto de Interacción (Shine Effect)
+Se programó un efecto de "brillo viajero" en CSS usando el pseudo-elemento ::after y gradientes lineales. Al pasar el mouse sobre cualquier producto (camisetas, termos o balones), un destello recorre la tarjeta, resaltando el producto de manera elegante. 

@@ -1,4 +1,4 @@
-/// T3 - Datos Mockeados Completos (Sello Colección Copa)
+// T3 - Catálogo Completo (Manteniendo tus productos y agregando los nuevos)
 const productos = [
     { id: 1, nombre: "Camiseta México - Colección Copa", precio: 95, stock: 8, imagen: "imagenes/image_2ad539.jpg" },
     { id: 2, nombre: "Camiseta Argentina - Colección Copa", precio: 110, stock: 3, imagen: "imagenes/image_2ad1f3.jpg" },
@@ -7,16 +7,28 @@ const productos = [
     { id: 5, nombre: "Camiseta Italia - Colección Copa", precio: 90, stock: 0, imagen: "imagenes/image_2ad15e.jpg" },
     { id: 6, nombre: "Camiseta Portugal - Colección Copa", precio: 100, stock: 6, imagen: "imagenes/image_2ad13e.jpg" },
     { id: 7, nombre: "Camiseta España - Colección Copa", precio: 95, stock: 7, imagen: "imagenes/image_2ad11d.jpg" },
-    { id: 8, nombre: "Balón Oficial Trionda 2026", precio: 160, stock: 10, imagen: "imagenes/image_2a605c.jpg" },
+    { id: 8, nombre: "Balón Oficial Trionda 2026", precio: 160, stock: 10, imagen: "imagenes/image_874ab1.png" }, // Actualizado con tu foto
     { id: 9, nombre: "Gorra Sedes Copa 2026", precio: 25, stock: 15, imagen: "imagenes/image_2a5d7a.jpg" },
     { id: 10, nombre: "Gorra World Cup Verde", precio: 30, stock: 12, imagen: "imagenes/image_2a5d55.jpg" },
     { id: 11, nombre: "Gorra Sedes USA/Canadá", precio: 25, stock: 20, imagen: "imagenes/image_2a5d1d.jpg" },
-    { id: 12, nombre: "Bufanda Oficial Mundial 2026", precio: 20, stock: 25, imagen: "imagenes/image_2a5c9e.jpg" }
+    { id: 12, nombre: "Bufanda Oficial Mundial 2026", precio: 20, stock: 25, imagen: "imagenes/image_2a5c9e.jpg" },
+    
+    // NUEVOS BALONES
+    { id: 13, nombre: "Balón Trionda Neón", precio: 145, stock: 6, imagen: "imagenes/image_8749d8.jpg" },
+    { id: 14, nombre: "Balón Sedes Mix", precio: 150, stock: 7, imagen: "imagenes/image_8749fe.png" },
+
+    // NUEVOS TERMOS (Tus imágenes de banderas)
+    { id: 15, nombre: "Termo México 2026", precio: 45, stock: 15, imagen: "imagenes/image_874dfe.jpg" },
+    { id: 16, nombre: "Termo Canadá 2026", precio: 45, stock: 12, imagen: "imagenes/image_874df6.jpg" },
+    { id: 17, nombre: "Termo USA 2026", precio: 45, stock: 20, imagen: "imagenes/image_874d9e.jpg" },
+    { id: 18, nombre: "Termo Colombia 2026", precio: 45, stock: 10, imagen: "imagenes/image_874d7f.jpg" },
+    
 ];
 
-let carrito = [];
+// Cargar carrito desde LocalStorage o empezar vacío
+let carrito = JSON.parse(localStorage.getItem('carritoCopa')) || [];
 
-// T4 - Render de productos (Modificada para aceptar filtros)
+// T4 - Render de productos
 function renderizarProductos(listaAMostrar = productos) {
     const contenedor = document.getElementById('contenedor-productos');
     if(!contenedor) return; 
@@ -43,7 +55,7 @@ function renderizarProductos(listaAMostrar = productos) {
     });
 }
 
-// NUEVO: T6 - Lógica del Buscador
+// T6 - Lógica del Buscador
 const buscador = document.getElementById('buscador');
 if(buscador) {
     buscador.addEventListener('input', () => {
@@ -51,7 +63,7 @@ if(buscador) {
         const filtrados = productos.filter(p => 
             p.nombre.toLowerCase().includes(texto)
         );
-        renderizarProductos(filtrados); // Re-dibuja solo los que coinciden
+        renderizarProductos(filtrados);
     });
 }
 
@@ -69,11 +81,13 @@ function agregarAlCarrito(id) {
     } else {
         carrito.push({ ...p, cantidad: 1 });
     }
-    renderizarCarrito();
+    actualizarInterfaz();
 }
 
-// T7 y T8 - Renderizado del carrito y cálculos
-function renderizarCarrito() {
+// T7, T8 y Persistencia - Renderizado y LocalStorage
+function actualizarInterfaz() {
+    localStorage.setItem('carritoCopa', JSON.stringify(carrito));
+    
     const cont = document.getElementById('items-carrito');
     const subElem = document.getElementById('subtotal-val');
     const totElem = document.getElementById('total-val');
@@ -93,7 +107,6 @@ function renderizarCarrito() {
             </div>`;
     });
 
-    // Descuento del 10% si hay 3 o más artículos diferentes
     let desc = carrito.length >= 3 ? subtotal * 0.1 : 0;
     if(promo) promo.style.display = desc > 0 ? "block" : "none";
 
@@ -101,7 +114,7 @@ function renderizarCarrito() {
     totElem.innerText = `$${(subtotal - desc).toFixed(2)}`;
 }
 
-// T9 - Finalizar Compra y Captura de Datos
+// T9 - Finalizar Compra
 function finalizarCompra() {
     const nombre = document.getElementById('nombre-cliente').value;
     const correo = document.getElementById('correo-cliente').value;
@@ -118,12 +131,12 @@ function finalizarCompra() {
 
     alert(`¡Venta exitosa!\n\nGracias por tu compra, ${nombre}.\nEnviaremos el recibo a: ${correo}`);
     
-    // Limpiar después de la compra
     carrito = [];
     document.getElementById('nombre-cliente').value = "";
     document.getElementById('correo-cliente').value = "";
-    renderizarCarrito();
+    actualizarInterfaz();
 }
 
 // Iniciar aplicación
-renderizarProductos(); 
+renderizarProductos();
+actualizarInterfaz(); 
