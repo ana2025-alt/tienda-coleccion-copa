@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colección Copa 2026 - Fase 1</title>
+    <title>Colección Copa 2026 - Fase 2</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
@@ -27,14 +27,25 @@
 
         <aside class="cart-sidebar">
             <div class="cart-header">TU CARRITO</div>
+            
             <div id="items-carrito">
                 <p class="empty-msg">El carrito está vacío</p>
             </div>
+
             <div class="cart-summary">
                 <div class="summary-line"><span>Subtotal</span> <span id="subtotal-val">$0</span></div>
-                <div id="promo-msg" class="promo-badge">PROMO 10% APLICADA (3+ LÍNEAS)</div>
+                <div id="promo-msg" class="promo-badge" style="display: none;">PROMO 10% APLICADA (3+ LÍNEAS)</div>
                 <div class="summary-line total"><span>Total</span> <span id="total-val">$0</span></div>
-                <button class="btn-checkout" disabled>CONFIRMAR PEDIDO</button>
+                
+                <div class="checkout-form" style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #ddd;">
+                    <p style="font-size: 0.8rem; font-weight: bold; margin-bottom: 10px;">DATOS DE ENVÍO</p>
+                    <input type="text" id="nombre-cliente" placeholder="Nombre completo" class="input-form">
+                    <input type="email" id="correo-cliente" placeholder="Correo electrónico" class="input-form">
+                    
+                    <button class="btn-checkout" onclick="finalizarCompra()">
+                        CONFIRMAR PEDIDO
+                    </button>
+                </div>
             </div>
         </aside>
     </main>

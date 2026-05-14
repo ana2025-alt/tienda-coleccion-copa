@@ -16,9 +16,11 @@ const productos = [
 
 let carrito = [];
 
-// T4 - Render de productos en la grilla
+// T4 - Render de productos en la grilla (Iteraciones)
 function renderizarProductos() {
     const contenedor = document.getElementById('contenedor-productos');
+    if(!contenedor) return; // Seguridad por si no existe el ID
+    
     contenedor.innerHTML = "";
     productos.forEach(p => {
         const agotado = p.stock === 0;
@@ -41,19 +43,21 @@ function agregarAlCarrito(id) {
     const item = carrito.find(x => x.id === id);
     if (item) {
         if (item.cantidad < p.stock) item.cantidad++;
-        else alert("Límite de stock alcanzado");
+        else alert("Límite de stock alcanzado para este producto");
     } else {
         carrito.push({ ...p, cantidad: 1 });
     }
     renderizarCarrito();
 }
 
-// T7 y T8 - Renderizado del carrito y cálculo de promo
+// T7 y T8 - Renderizado del carrito y cálculo de funciones
 function renderizarCarrito() {
     const cont = document.getElementById('items-carrito');
     const subElem = document.getElementById('subtotal-val');
     const totElem = document.getElementById('total-val');
     const promo = document.getElementById('promo-msg');
+
+    if(!cont) return;
 
     cont.innerHTML = carrito.length === 0 ? '<p class="empty-msg">El carrito está vacío</p>' : '';
     let subtotal = 0;
@@ -61,18 +65,42 @@ function renderizarCarrito() {
     carrito.forEach(item => {
         subtotal += item.precio * item.cantidad;
         cont.innerHTML += `
-            <div class="item-carrito">
+            <div class="item-carrito" style="display: flex; justify-content: space-between; margin-bottom: 5px; border-bottom: 1px solid #eee;">
                 <span>${item.nombre} (x${item.cantidad})</span>
                 <span>$${item.precio * item.cantidad}</span>
             </div>`;
     });
 
-    // Promo 10% si hay 3 o más líneas distintas (Requisito Fase 1)
+    // Lógica de Descuento (Requisito: Procesos con condicionales)
     let desc = carrito.length >= 3 ? subtotal * 0.1 : 0;
-    promo.style.display = desc > 0 ? "block" : "none";
+    if(promo) promo.style.display = desc > 0 ? "block" : "none";
 
     subElem.innerText = `$${subtotal.toFixed(2)}`;
     totElem.innerText = `$${(subtotal - desc).toFixed(2)}`;
+}
+
+// NUEVO: Función para Capturar Datos del Cliente (Punto 4 de la Fase 2)
+function finalizarCompra() {
+    const nombre = document.getElementById('nombre-cliente').value;
+    const correo = document.getElementById('correo-cliente').value;
+
+    if (nombre === "" || correo === "") {
+        alert("Por favor, ingresa tus datos para procesar la compra.");
+        return;
+    }
+
+    if (carrito.length === 0) {
+        alert("Tu carrito está vacío.");
+        return;
+    }
+
+    alert(`¡Gracias por tu compra, ${nombre}! Te enviaremos el recibo a ${correo}.`);
+    
+    // Limpiar todo después de la compra
+    carrito = [];
+    document.getElementById('nombre-cliente').value = "";
+    document.getElementById('correo-cliente').value = "";
+    renderizarCarrito();
 }
 
 // Iniciar aplicación

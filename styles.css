@@ -63,3 +63,67 @@ body { font-family: 'Roboto', sans-serif; background-color: #f8f9fa; color: #1a1
 .promo-badge { background: #e6fffa; color: #2c7a7b; padding: 5px; font-size: 0.8rem; font-weight: 700; margin-bottom: 15px; display: none; text-align: center; }
 
 .total { font-weight: 900; font-size: 1.2rem; color: #001f5b; padding: 10px 0; }
+
+/* --- Ajustes Fase 2: Formulario y Estética --- */
+
+/* Estilo para los inputs de captura de datos */
+.input-form {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    transition: border-color 0.3s;
+    outline: none;
+}
+
+.input-form:focus {
+    border-color: #001f5b; /* Resalta con tu azul de marca */
+    box-shadow: 0 0 5px rgba(0, 31, 91, 0.2);
+}
+
+/* Botón de Confirmar Pedido */
+.btn-checkout {
+    background: #28a745; /* Un verde éxito para la conversión */
+    color: white;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    border-radius: 6px;
+    font-weight: 900;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.btn-checkout:hover {
+    background: #218838;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.btn-checkout:active {
+    transform: scale(0.98);
+}
+
+/* Estilo para los mensajes de stock */
+.stock-label {
+    font-size: 0.75rem;
+    color: #666;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+/* Responsividad básica para tablets/celulares */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+    }
+    .cart-sidebar {
+        position: static;
+        width: 100%;
+    }
+}
