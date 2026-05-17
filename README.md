@@ -61,3 +61,30 @@ Lógica de Animación: Cada elemento tiene un animation-duration y animation-del
 
 🌟 Efecto de Interacción (Shine Effect)
 Se programó un efecto de "brillo viajero" en CSS usando el pseudo-elemento ::after y gradientes lineales. Al pasar el mouse sobre cualquier producto (camisetas, termos o balones), un destello recorre la tarjeta, resaltando el producto de manera elegante.  
+
+## 👥 Autores del Proyecto
+- **Desarrolladoras Principales:** Ana Anselmi & Yeneily Seijas 🎓
+- **Especialidad:** Informática - Proyecto Fase 2 (Mayo 2026)
+
+---
+
+### 🔄 Detalles de la Última Actualización (Entrega Final)
+
+#### 1. 🥤 Integración de la Línea de Termos Internacionales
+Se expandió el catálogo de datos en `app.js` agregando una colección exclusiva de termos de acero inoxidable personalizados con las banderas de los países sedes e invitados:
+- **Termo México 2026** (Diseño Azteca)
+- **Termo Canadá 2026** (Diseño Hoja de Maple)
+- **Termo USA 2026** (Diseño Barras y Estrellas)
+- **Termo Colombia 2026** (Diseño Tricolor)
+- **Termo South Africa 2026** (Edición Especial)
+- **Combo Colección Completa:** Inclusión de una tarjeta especial en la grilla que muestra el set completo de termos reunidos.
+
+#### 2. 🎛️ Corrección Estructural del Layout y Cuadrícula (Grid)
+- **Alineación en Filas:** Se reestructuró el archivo `styles.css` aplicando propiedades avanzadas de CSS Grid (`grid-template-columns: repeat(auto-fill, minmax(240px, 1fr))`) para forzar que todos los productos se rendericen de forma continua, uno al lado del otro, adaptándose al tamaño de la pantalla.
+- **Fijación del Carrito (Sidebar):** Se corrigió el estiramiento vertical del contenedor mediante `align-items: flex-start`, devolviendo el carrito de compras a su posición original como barra lateral derecha flotante y sticky.
+
+#### 3. 🎈 Optimización de Partículas Flotantes (UI/UX)
+- Se incrementó la opacidad base y se añadieron propiedades de iluminación de neón (`drop-shadow`) a los elementos del fondo. Ahora los balones (⚽), trofeos (🏆) y termos (🥤) rotan en un eje de 720 grados mientras suben, logrando una atmósfera mundialista mucho más llamativa e inmersiva.
+
+#### 4. 📄 Inclusión del Archivo de Especificaciones Técnicas (Spec)
+- Se creó e integró al repositorio el archivo `spec.json` bajo el estándar técnico exigido, mapeando los requerimientos cumplidos (desde T3 hasta T9), los autores en formato de arreglo indexado y la arquitectura de manipulación dinámica del DOM de la aplicación. 

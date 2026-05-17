@@ -1,7 +1,9 @@
 {
   "project_name": "Colección Copa 2026 - Tienda Interactiva",
   "phase": 2,
-  "architecture": "Single Page Application (SPA) basada en manipulación del DOM",
+  "release_date": "2026-05-17",
+  "author": ["Ana Anselmi", "Yeneily Seijas"],
+  "architecture": "Single Page Application (SPA) basada en manipulación dinámica del DOM",
   "features_implemented": [
     "Renderizado asíncrono controlado mediante arreglos de objetos",
     "Buscador predictivo en tiempo real con filtrado de arreglos lineales",
