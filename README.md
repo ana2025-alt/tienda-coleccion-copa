@@ -1,8 +1,8 @@
 # Proyecto: Tienda Colección Copa 2026
-
+## 👥 Autores del Proyecto
 **Estudiante:** Ana Anselmi , Yeneily Seijas
 **Carrera:** Programación
-**Entrega:** Fase 1 - Hackathon Clase 02
+**Entrega:** Fase 1 - Fase2 Hackathon Clase 02
 
 ## Descripción
 Este proyecto es una tienda ficticia de merchandising para el Mundial 2026, cumpliendo con el Brief 05. Incluye camisetas, pelotas, gorras y bufandas con el sello "Colección Copa".
@@ -60,4 +60,4 @@ Variedad de Objetos: Ahora no solo flotan balones (⚽), sino también trofeos (
 Lógica de Animación: Cada elemento tiene un animation-duration y animation-delay diferente generado en el HTML, lo que evita que todos suban al mismo tiempo y les da un movimiento más natural y aleatorio.
 
 🌟 Efecto de Interacción (Shine Effect)
-Se programó un efecto de "brillo viajero" en CSS usando el pseudo-elemento ::after y gradientes lineales. Al pasar el mouse sobre cualquier producto (camisetas, termos o balones), un destello recorre la tarjeta, resaltando el producto de manera elegante. 
+Se programó un efecto de "brillo viajero" en CSS usando el pseudo-elemento ::after y gradientes lineales. Al pasar el mouse sobre cualquier producto (camisetas, termos o balones), un destello recorre la tarjeta, resaltando el producto de manera elegante.  
