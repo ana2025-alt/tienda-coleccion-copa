@@ -7,7 +7,6 @@ const productos = [
     { id: 5, nombre: "Camiseta Italia - Colección Copa", precio: 90, stock: 0, imagen: "imagenes/image_2ad15e.jpg" },
     { id: 6, nombre: "Camiseta Portugal - Colección Copa", precio: 100, stock: 6, imagen: "imagenes/image_2ad13e.jpg" },
     { id: 7, nombre: "Camiseta España - Colección Copa", precio: 95, stock: 7, imagen: "imagenes/image_2ad11d.jpg" },
-    { id: 8, nombre: "Balón Oficial Trionda 2026", precio: 160, stock: 10, imagen: "imagenes/image_874ab1.png" },
     { id: 9, nombre: "Gorra Sedes Copa 2026", precio: 25, stock: 15, imagen: "imagenes/image_2a5d7a.jpg" },
     { id: 10, nombre: "Gorra World Cup Verde", precio: 30, stock: 12, imagen: "imagenes/image_2a5d55.jpg" },
     { id: 11, nombre: "Gorra Sedes USA/Canadá", precio: 25, stock: 20, imagen: "imagenes/image_2a5d1d.jpg" },
@@ -16,12 +15,11 @@ const productos = [
     // EXCLUSIVOS AGREGADOS
     { id: 13, nombre: "Balón Trionda Neón", precio: 145, stock: 6, imagen: "imagenes/image_8749d8.jpg" },
     { id: 14, nombre: "Balón Sedes Mix", precio: 150, stock: 7, imagen: "imagenes/image_8749fe.png" },
-    { id: 15, nombre: "Combo Termos Banderas (Edición Especial)", precio: 195, stock: 5, imagen: "imagenes/image_872b92.jpg" },
     { id: 16, nombre: "Termo México 2026", precio: 45, stock: 15, imagen: "imagenes/image_874dfe.jpg" },
     { id: 17, nombre: "Termo Canadá 2026", precio: 45, stock: 12, imagen: "imagenes/image_874df6.jpg" },
     { id: 18, nombre: "Termo USA 2026", precio: 45, stock: 20, imagen: "imagenes/image_874d9e.jpg" },
     { id: 19, nombre: "Termo Colombia 2026", precio: 45, stock: 10, imagen: "imagenes/image_874d7f.jpg" },
-    { id: 20, nombre: "Termo South Africa 2026", precio: 45, stock: 8, imagen: "imagenes/image_874dd8.jpg" }
+    { id: 20, nombre: "Balón Oficial Trionda 2026", precio: 150, stock: 8, imagen: "imagenes/image_2a605c.jpg" } 
 ];
 
 // Cargar estado inicial (Persistencia LocalStorage)
@@ -78,6 +76,7 @@ function agregarAlCarrito(id) {
             alert("Límite de stock alcanzado para este producto");
         }
     } else {
+        // Corregido: Se cambió 'candy: 1' por 'cantidad: 1' para el manejo del carro
         carrito.push({ ...p, bundleId: p.id, cantidad: 1 });
     }
     actualizarInterfaz();
@@ -113,13 +112,20 @@ function actualizarInterfaz() {
     totElem.innerText = `$${(subtotal - desc).toFixed(2)}`;
 }
 
-// T9 - Finalizar Compra y validación de campos
+// T9 - Finalizar Compra con validación de correo estricta y descuento de stock real
 function finalizarCompra() {
     const nombre = document.getElementById('nombre-cliente').value;
     const correo = document.getElementById('correo-cliente').value;
 
-    if (nombre.trim() === "" || correo.trim() === "") {
-        alert("Por favor, ingresa tus datos para procesar la compra.");
+    if (nombre.trim() === "") {
+        alert("Por favor, ingresa tu nombre para procesar la compra.");
+        return;
+    }
+
+    // Validación estricta con expresión regular para asegurar un formato de correo real con @ y .com/dominio
+    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regexCorreo.test(correo)) {
+        alert("Por favor, ingresa un correo electrónico válido (ejemplo: usuario@correo.com).");
         return;
     }
 
@@ -128,11 +134,22 @@ function finalizarCompra() {
         return;
     }
 
+    // ARREGLO DE STOCK: Descuenta la cantidad seleccionada en el carro al stock real disponible del producto
+    carrito.forEach(itemCarrito => {
+        const productoOriginal = productos.find(p => p.id === itemCarrito.id);
+        if (productoOriginal) {
+            productoOriginal.stock -= itemCarrito.cantidad;
+        }
+    });
+
     alert(`¡Venta exitosa!\n\nGracias por tu compra, ${nombre}.\nEnviaremos el recibo a: ${correo}`);
     
+    // Resetear formulario y limpiar carrito
     carrito = [];
     document.getElementById('nombre-cliente').value = "";
     document.getElementById('correo-cliente').value = "";
+    
+    renderizarProductos(); // Re-renderiza las tarjetas para reflejar el stock disminuido de inmediato
     actualizarInterfaz();
 }
 

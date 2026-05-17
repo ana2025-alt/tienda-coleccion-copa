@@ -88,3 +88,9 @@ Se expandió el catálogo de datos en `app.js` agregando una colección exclusiv
 
 #### 4. 📄 Inclusión del Archivo de Especificaciones Técnicas (Spec)
 - Se creó e integró al repositorio el archivo `spec.json` bajo el estándar técnico exigido, mapeando los requerimientos cumplidos (desde T3 hasta T9), los autores en formato de arreglo indexado y la arquitectura de manipulación dinámica del DOM de la aplicación. 
+
+#### 5. 🛒 Optimización de la Lógica de Pedidos y Control de Inventario
+- **Validación Estricta de Correo Electrónico:** Se integró una expresión regular (`regex`) en la función `finalizarCompra()` para obligar al sistema a verificar que el usuario ingrese un formato de correo real (con `@` y un dominio válido como `.com`), bloqueando cadenas de texto aleatorias.
+- **Descuento Dinámico de Stock:** Se programó un ciclo que recorre el carrito al confirmar el pedido, localiza el producto original mediante su `id` y resta la cantidad comprada directamente de su propiedad `stock`.
+- **Refresco Automático de Interfaz:** Al completarse la venta, la grilla se vuelve a renderizar inmediatamente mostrando la disminución real del stock disponible en las tarjetas de los productos.
+- **Depuración de Atributos:** Se corrigió un bug en la asignación de propiedades del carrito, unificando el contador bajo la variable estándar `cantidad` para evitar conflictos en el motor de cálculo del subtotal.  
