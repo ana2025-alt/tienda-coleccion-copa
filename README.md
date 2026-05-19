@@ -94,3 +94,30 @@ Se expandió el catálogo de datos en `app.js` agregando una colección exclusiv
 - **Descuento Dinámico de Stock:** Se programó un ciclo que recorre el carrito al confirmar el pedido, localiza el producto original mediante su `id` y resta la cantidad comprada directamente de su propiedad `stock`.
 - **Refresco Automático de Interfaz:** Al completarse la venta, la grilla se vuelve a renderizar inmediatamente mostrando la disminución real del stock disponible en las tarjetas de los productos.
 - **Depuración de Atributos:** Se corrigió un bug en la asignación de propiedades del carrito, unificando el contador bajo la variable estándar `cantidad` para evitar conflictos en el motor de cálculo del subtotal.  
+
+
+## 🛠️ Historial de Cambios y Distribución de Tareas - Fase 3
+
+En esta fase se realizó una reestructuración completa del proyecto, migrando de un diseño monolítico a una arquitectura modular basada en **ES Modules (JavaScript Moderno)**, aplicando principios SOLID para mejorar la escalabilidad, el mantenimiento y la limpieza del código.
+
+### 👥 Distribución de Desarrollo (Sprint Modular)
+
+Para optimizar el desarrollo de la estructura modular, el equipo distribuyó los módulos y responsabilidades de la siguiente manera:
+
+* **Desarrollado por Ana:**
+    * **Arquitectura Base:** Creación del punto de entrada principal (`js/main.js`) y configuración del script en el HTML como `type="module"`.
+    * **Gestión de Datos:** Creación y exportación del módulo de productos (`js/productsData.js`), centralizando el catálogo de merchandising oficial.
+    * **Documentación Técnica:** Redacción del diagnóstico, reporte de mejoras y el plan de acción final en la carpeta `docs/`.
+
+* **Desarrollado por Yeneily:**
+    * **Lógica del Carrito:** Creación del módulo del motor de compras (`js/cartEngine.js`), encargada de las funciones de agregar, calcular subtotales y vaciar el carrito.
+    * **Renderizado de Interfaz:** Creación del módulo de UI (`js/uiManager.js`), encargada de pintar dinámicamente los productos en el DOM y actualizar los estados visuales.
+    * **Estilos y Ajustes Visuales:** Acoplación del sistema de módulos con el diseño *Dark Mode* y optimización de las animaciones de los elementos flotantes.
+
+---
+
+### 🔄 Resumen Técnico de Modificaciones
+
+1. **Estructuración de Carpetas:** Se limpió la raíz del proyecto moviendo toda la lógica de JavaScript dentro de la carpeta contenedora `/js` y la documentación a `/docs`.
+2. **Desacoplamiento de Código:** Se eliminaron las funciones globales y se reemplazaron por `import` y `export` selectivos para evitar la contaminación del *scope* global.
+3. **Optimización de Carga:** Se configuró la carga asíncrona de los módulos mediante el evento `DOMContentLoaded` en el inicio de la aplicación. 
