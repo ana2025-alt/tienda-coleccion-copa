@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Motor del carrito de compras y renderizado de la interfaz de usuario.
+ * @author Yeneily
+ * @project Colección Copa 2026 - Fase 3
+ */
+
+
 import { productos } from './productsData.js';
 
 export let carrito = JSON.parse(localStorage.getItem('carritoCopa')) || [];
@@ -23,4 +30,4 @@ export function vaciarCarrito() {
 
 export function guardarEstado() {
     localStorage.setItem('carritoCopa', JSON.stringify(carrito));
-} 
+}  

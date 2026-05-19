@@ -2,7 +2,7 @@
 
 **Autoras:** Ana Anselmi & Yeneily Seijas  
 **Fecha:** Mayo 2026  
-**Contexto:** Análisis de arquitectura de la Fase 2 previo a la modularización.
+**Contexto:** Análisis de arquitectura de la Fase 3 previo a la modularización.
 
 ## 1. Estado Actual del Repositorio
 El proyecto actual cuenta con una estructura centralizada clásica de un desarrollo rápido de Hackathon:
@@ -13,4 +13,5 @@ El proyecto actual cuenta con una estructura centralizada clásica de un desarro
 Si el docente o el cliente solicitaran cambios realistas en el brief, el código actual sufriría los siguientes impactos:
 - **Cambio de persistencia:** Si se requiere migrar de `LocalStorage` a una API real (`fetch`), habría que reescribir múltiples secciones dentro del núcleo de interacción.
 - **Riesgo de Regresión:** Modificar una propiedad visual dentro del render dinámico de productos puede romper la lógica de validación del carrito de compras debido al acoplamiento de variables globales.
-- **Mantenimiento:** El archivo `app.js` escalará exponencialmente con cada nueva línea de productos (features), volviéndose difícil de testear. 
+- **Mantenimiento:** El archivo `app.js` escalará exponencialmente con cada nueva línea de productos (features), volviéndose difícil de testear.  
+

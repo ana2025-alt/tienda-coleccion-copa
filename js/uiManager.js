@@ -1,3 +1,11 @@
+/**
+ * @fileoverview Motor del carrito de compras y renderizado de la interfaz de usuario.
+ * @author Yeneily
+ * @project Colección Copa 2026 - Fase 3
+ */
+
+
+
 import { productos } from './productsData.js';
 import { carrito } from './cartEngine.js';
 
@@ -52,4 +60,4 @@ export function actualizarInterfaz() {
 
     subElem.innerText = `$${subtotal.toFixed(2)}`;
     totElem.innerText = `$${(subtotal - desc).toFixed(2)}`;
-} 
+}   

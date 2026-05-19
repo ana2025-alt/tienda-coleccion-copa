@@ -1,3 +1,11 @@
+/**
+ * @fileoverview Módulo base y gestión del catálogo de productos.
+ * @author Ana
+ * @project Colección Copa 2026 - Fase 3
+ */
+
+
+
 import { productos } from './productsData.js';
 import { carrito, agregarAlCarrito, vaciarCarrito, guardarEstado } from './cartEngine.js';
 import { renderizarProductos, actualizarInterfaz } from './uiManager.js';
@@ -75,4 +83,4 @@ function finalizarCompra() {
     
     renderizarProductos();
     actualizarInterfaz();
-} 
+}  

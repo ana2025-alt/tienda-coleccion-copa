@@ -1,3 +1,11 @@
+/**
+ * @fileoverview Módulo base y gestión del catálogo de productos.
+ * @author Ana
+ * @project Colección Copa 2026 - Fase 3
+ */
+
+
+
 export const productos = [
     { id: 1, nombre: "Camiseta México - Colección Copa", precio: 95, stock: 8, imagen: "imagenes/image_2ad539.jpg" },
     { id: 2, nombre: "Camiseta Argentina - Colección Copa", precio: 110, stock: 3, imagen: "imagenes/image_2ad1f3.jpg" },
@@ -17,4 +25,4 @@ export const productos = [
     { id: 18, nombre: "Termo USA 2026", precio: 45, stock: 20, imagen: "imagenes/image_874d9e.jpg" },
     { id: 19, nombre: "Termo Colombia 2026", precio: 45, stock: 10, imagen: "imagenes/image_874d7f.jpg" },
     { id: 20, nombre: "Balón Oficial Trionda 2026", precio: 150, stock: 8, imagen: "imagenes/image_2a605c.jpg" } 
-]; 
+];    
