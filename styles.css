@@ -60,6 +60,7 @@ body {
 
 .products-area { 
     flex: 3; 
+    width: 100%;
 }
 
 .section-title { 
@@ -69,10 +70,11 @@ body {
 }
 
 /* GRILLA PROFESIONAL: Productos uno al lado del otro de forma seguida */
-.grid-products { 
+.grid-products, #contenedor-productos { 
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
     gap: 25px; 
+    width: 100%;
 }
 
 /* TARJETAS GLASSMORPHISM CON INTERACCIÓN */
@@ -111,10 +113,20 @@ body {
 .btn-add { 
     background: linear-gradient(45deg, #001f5b, #00509d); color: white; border: none; 
     padding: 12px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: 700;
-    text-transform: uppercase; transition: 0.3s;
+    text-transform: uppercase; transition: all 0.3s ease;
 }
 .btn-add:hover { background: #ffd700; color: #001f5b; }
 .btn-add:disabled { background: rgba(255,255,255,0.1); color: #666; cursor: not-allowed; }
+
+/* ==========================================================================
+   INTERACCIÓN TIPO FARMATODO (ESTILOS TEMPORALES DEL BOTÓN CLICADO)
+   ========================================================================== */
+.btn-add.btn-agregado {
+    background: linear-gradient(45deg, #1e7e34, #28a745) !important;
+    color: #ffffff !important;
+    transform: scale(0.95);
+    box-shadow: 0 0 12px rgba(40, 167, 69, 0.4);
+}
 
 /* --- SIDEBAR DEL CARRITO ORIGINAL (A la derecha) --- */
 .cart-sidebar { 
@@ -143,8 +155,74 @@ body {
 .btn-checkout { background: linear-gradient(45deg, #28a745, #34ce57); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
 .btn-checkout:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(40, 167, 69, 0.4); }
 
-/* RESPONSIVIDAD */
+/* ==========================================================================
+   NOTIFICACIONES MODALES PERSONALIZADAS (DISEÑO OSCURO E INTEGRADO)
+   ========================================================================== */
+.custom-toast {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(8px);
+    color: #ffffff;
+    padding: 16px 24px;
+    border-radius: 10px;
+    border-left: 5px solid #ffd700; /* Borde amarillo Copa */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    z-index: 2000;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: toastSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.custom-toast.error {
+    border-left-color: #dc3545; /* Rojo para errores de validación */
+}
+
+@keyframes toastSlideIn {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* ==========================================================================
+   RESPONSIVIDAD Y BREAKPOINTS OPTIMIZADOS
+   ========================================================================== */
 @media (max-width: 950px) {
-    .container { flex-direction: column; }
-    .cart-sidebar { width: 100%; position: static; }
+    .container { 
+        flex-direction: column; 
+        padding: 20px 4%;
+    }
+    
+    .products-area {
+        order: 1; /* El catálogo de productos se mantiene arriba */
+    }
+
+    .cart-sidebar { 
+        width: 100%; 
+        min-width: 100%;
+        position: static; 
+        order: 2; /* El carrito baja elegantemente sin romper estructuras */
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 580px) {
+    .grid-products, #contenedor-productos {
+        grid-template-columns: 1fr; /* Una sola columna en celulares para centrar la tarjeta */
+        justify-items: center;
+    }
+    
+    .product-card {
+        width: 100%;
+        max-width: 320px; /* Evita que las tarjetas se estiren infinitamente */
+    }
+    
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
 } 

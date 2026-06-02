@@ -4,10 +4,29 @@
  * @project Colección Copa 2026 - Fase 3
  */
 
-
-
 import { productos } from './productsData.js';
 import { carrito } from './cartEngine.js';
+
+// ==========================================================================
+// NUEVA FUNCIÓN: Alertas personalizadas y modernas (Evita los alert() nativos)
+// ==========================================================================
+export function mostrarNotificacion(mensaje, tipo = 'success') {
+    // Eliminar si ya hay una alerta vieja en pantalla para que no se acumulen
+    const alertaExistente = document.querySelector('.custom-toast');
+    if (alertaExistente) alertaExistente.remove();
+
+    // Crear la estructura de la nueva notificación
+    const toast = document.createElement('div');
+    toast.className = `custom-toast ${tipo === 'error' ? 'error' : ''}`;
+    toast.innerHTML = `<span>${tipo === 'error' ? '⚠️' : '⚽'} ${mensaje}</span>`;
+
+    document.body.appendChild(toast);
+
+    // Se elimina automáticamente a los 3 segundos gracias a la animación CSS
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
 
 export function renderizarProductos(listaAMostrar = productos) {
     const contenedor = document.getElementById('contenedor-productos');
@@ -20,6 +39,7 @@ export function renderizarProductos(listaAMostrar = productos) {
         return;
     }
 
+    // 1. Primero creamos e insertamos todas las tarjetas en el HTML
     listaAMostrar.forEach(p => {
         const agotado = p.stock === 0;
         contenedor.innerHTML += `
@@ -33,6 +53,32 @@ export function renderizarProductos(listaAMostrar = productos) {
                 </button>
             </div>`;
     });
+
+    // 2. CORRECCIÓN: Esperamos 50 milisegundos para que el DOM se actualice antes de buscar los botones
+    setTimeout(() => {
+        const botonesAdd = contenedor.querySelectorAll('.btn-add');
+        botonesAdd.forEach(boton => {
+            boton.addEventListener('click', (e) => {
+                if (boton.classList.contains('btn-agregado')) return;
+
+                // Guardamos el texto original ("AÑADIR AL CARRITO")
+                const textoOriginal = boton.innerText;
+
+                // Aplicamos los cambios visuales temporales
+                boton.classList.add('btn-agregado');
+                boton.innerText = '¡AGREGADO! ✓';
+
+                // Lanzamos la notificación personalizada en vez de un alert tosco
+                mostrarNotificacion('Producto añadido al carrito con éxito');
+
+                // Regresa a su estado normal después de 1.5 segundos
+                setTimeout(() => {
+                    boton.classList.remove('btn-agregado');
+                    boton.innerText = textoOriginal;
+                }, 1500);
+            });
+        });
+    }, 50);
 }
 
 export function actualizarInterfaz() {
@@ -60,4 +106,4 @@ export function actualizarInterfaz() {
 
     subElem.innerText = `$${subtotal.toFixed(2)}`;
     totElem.innerText = `$${(subtotal - desc).toFixed(2)}`;
-}   
+} 
