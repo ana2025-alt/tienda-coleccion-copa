@@ -190,39 +190,33 @@ body {
 /* ==========================================================================
    RESPONSIVIDAD Y BREAKPOINTS OPTIMIZADOS
    ========================================================================== */
+/* --- RESPONSIVIDAD (SOLUCIÓN DISPOSITIVOS MÓVILES) --- */
 @media (max-width: 950px) {
     .container { 
-        flex-direction: column; 
+        display: flex !important;
+        flex-direction: column !important; /* Alinea los elementos uno abajo del otro */
         padding: 20px 4%;
     }
     
-    .products-area {
-        order: 1; /* El catálogo de productos se mantiene arriba */
+    .products-area { 
+        width: 100% !important; 
+        order: 2 !important; /* Mueve el catálogo de productos ABAJO */
     }
 
     .cart-sidebar { 
-        width: 100%; 
-        min-width: 100%;
-        position: static; 
-        order: 2; /* El carrito baja elegantemente sin romper estructuras */
-        margin-top: 20px;
+        width: 100% !important; 
+        min-width: 100% !important;
+        position: static !important; 
+        margin-top: 10px;
+        margin-bottom: 30px;
+        order: 1 !important; /* Mueve el carrito de compras ARRIBA del todo */
     }
 }
 
 @media (max-width: 580px) {
     .grid-products, #contenedor-productos {
-        grid-template-columns: 1fr; /* Una sola columna en celulares para centrar la tarjeta */
+        grid-template-columns: 1fr !important;
         justify-items: center;
     }
-    
-    .product-card {
-        width: 100%;
-        max-width: 320px; /* Evita que las tarjetas se estiren infinitamente */
-    }
-    
-    .navbar {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-    }
+    .product-card { width: 100%; max-width: 320px; }
 } 

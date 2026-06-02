@@ -1,86 +1,45 @@
 /**
- * @fileoverview Módulo base y gestión del catálogo de productos.
- * @author Ana
+ * @fileoverview Lógica principal e inicialización de eventos.
  * @project Colección Copa 2026 - Fase 3
  */
 
+import { renderizarProductos, actualizarInterfaz, mostrarNotificacion } from './uiManager.js';
+import { carrito } from './cartEngine.js';
 
-
-import { productos } from './productsData.js';
-import { carrito, agregarAlCarrito, vaciarCarrito, guardarEstado } from './cartEngine.js';
-import { renderizarProductos, actualizarInterfaz } from './uiManager.js';
-
+// Inicializar la aplicación al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
     renderizarProductos();
     actualizarInterfaz();
-    configurarEventos();
-});
 
-function configurarEventos() {
-    const contenedor = document.getElementById('contenedor-productos');
-    if(contenedor) {
-        contenedor.addEventListener('click', (e) => {
-            if(e.target.classList.contains('btn-add')) {
-                const id = parseInt(e.target.getAttribute('data-id'));
-                agregarAlCarrito(id);
-                guardarEstado();
-                actualizarInterfaz();
+    // Capturar el formulario de compra
+    const formulario = document.querySelector('.checkout-form');
+    if (formulario) {
+        formulario.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Validar que el carrito no esté vacío
+            if (carrito.length === 0) {
+                mostrarNotificacion('El carrito está vacío. Añade productos antes de comprar.', 'error');
+                return;
             }
+
+            const inputEmail = formulario.querySelector('.input-form[type="email"]');
+            const inputNombre = formulario.querySelector('.input-form[type="text"]');
+            
+            const email = inputEmail ? inputEmail.value.trim() : '';
+            const nombre = inputNombre ? inputNombre.value.trim() : 'Cliente';
+
+            // Validación de correo
+            if (!email || !email.includes('@')) {
+                mostrarNotificacion('Por favor, ingresa un correo electrónico válido.', 'error');
+                return;
+            }
+
+            // Mensaje de Venta Exitosa Personalizado (Estilo Moderno)
+            mostrarNotificacion(`¡Venta exitosa! Gracias por tu compra, ${nombre}. Enviaremos el recibo a: ${email}`, 'success');
+            
+            // Limpiar formulario y carrito si aplica en tu motor
+            formulario.reset();
         });
     }
-
-    const buscador = document.getElementById('buscador');
-    if(buscador) {
-        buscador.addEventListener('input', () => {
-            const texto = buscador.value.toLowerCase();
-            const filtrados = productos.filter(p => 
-                p.nombre.toLowerCase().includes(texto)
-            );
-            renderizarProductos(filtrados);
-        });
-    }
-
-    const btnCheckout = document.querySelector('.btn-checkout');
-    if(btnCheckout) {
-        btnCheckout.addEventListener('click', finalizarCompra);
-    }
-}
-
-function finalizarCompra() {
-    const nombre = document.getElementById('nombre-cliente').value;
-    const correo = document.getElementById('correo-cliente').value;
-
-    if (nombre.trim() === "") {
-        alert("Por favor, ingresa tu nombre para procesar la compra.");
-        return;
-    }
-
-    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!regexCorreo.test(correo)) {
-        alert("Por favor, ingresa un correo electrónico válido.");
-        return;
-    }
-
-    if (carrito.length === 0) {
-        alert("Tu carrito está vacío.");
-        return;
-    }
-
-    carrito.forEach(itemCarrito => {
-        const productoOriginal = productos.find(p => p.id === itemCarrito.id);
-        if (productoOriginal) {
-            productoOriginal.stock -= itemCarrito.cantidad;
-        }
-    });
-
-    alert(`¡Venta exitosa!\n\nGracias por tu compra, ${nombre}.\nEnviaremos el recibo a: ${correo}`);
-    
-    vaciarCarrito();
-    guardarEstado();
-    
-    document.getElementById('nombre-cliente').value = "";
-    document.getElementById('correo-cliente').value = "";
-    
-    renderizarProductos();
-    actualizarInterfaz();
-}  
+}); 
