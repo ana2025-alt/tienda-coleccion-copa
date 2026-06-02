@@ -5,11 +5,9 @@
  */
 
 import { productos } from './productsData.js';
-import { carrito, agregarAlCarrito } from './cartEngine.js'; // Importamos correctamente la función del motor
+import { carrito, agregarAlCarrito } from './cartEngine.js';
 
-// ==========================================================================
-// FUNCIÓN: Alertas personalizadas y modernas
-// ==========================================================================
+// FUNCIÓN DE ALERTAS PERSONALIZADAS
 export function mostrarNotificacion(mensaje, tipo = 'success') {
     const alertaExistente = document.querySelector('.custom-toast');
     if (alertaExistente) alertaExistente.remove();
@@ -36,7 +34,6 @@ export function renderizarProductos(listaAMostrar = productos) {
         return;
     }
 
-    // 1. Creamos las tarjetas incluyendo el selector de cantidad solicitado
     listaAMostrar.forEach(p => {
         const agotado = p.stock === 0;
         contenedor.innerHTML += `
@@ -44,7 +41,7 @@ export function renderizarProductos(listaAMostrar = productos) {
                 <img src="${p.imagen}" alt="${p.nombre}">
                 <h3>${p.nombre}</h3>
                 <span class="price">$${p.precio}</span>
-                <p class="stock-label">Stock disponible: ${p.stock}</p>
+                <p class="stock-label" id="stock-text-${p.id}">Stock disponible: ${p.stock}</p>
                 
                 ${!agotado ? `
                     <div class="cantidad-contenedor" style="margin-bottom: 12px; display: flex; justify-content: center; align-items: center; gap: 10px;">
@@ -60,47 +57,61 @@ export function renderizarProductos(listaAMostrar = productos) {
             </div>`;
     });
 
-    // 2. Escuchamos el clic y enlazamos directamente con las cantidades dinámicas del motor
-    setTimeout(() => {
-        const botonesAdd = contenedor.querySelectorAll('.btn-add');
-        botonesAdd.forEach(boton => {
-            boton.addEventListener('click', (e) => {
-                if (boton.classList.contains('btn-agregado')) return;
+    // ASIGNAR CLICS A LOS BOTONES
+    const botonesAdd = contenedor.querySelectorAll('.btn-add');
+    botonesAdd.forEach(boton => {
+        boton.addEventListener('click', () => {
+            if (boton.classList.contains('btn-agregado')) return;
 
-                const idProducto = parseInt(boton.getAttribute('data-id'));
-                const inputCantidad = document.getElementById(`cant-${idProducto}`);
-                // Si existe el input lee su valor, si no (como en "SIN STOCK"), por defecto es 1
-                const cantidadAAgregar = inputCantidad ? parseInt(inputCantidad.value) : 1;
+            const idProducto = parseInt(boton.getAttribute('data-id'));
+            const inputCantidad = document.getElementById(`cant-${idProducto}`);
+            const cantidadAAgregar = inputCantidad ? parseInt(inputCantidad.value) : 1;
 
-                // Validación por si el usuario escribe un número manualmente inválido
-                if (isNaN(cantidadAAgregar) || cantidadAAgregar <= 0) {
-                    mostrarNotificacion('Por favor, ingresa una cantidad válida.', 'error');
-                    return;
+            const p = productos.find(x => x.id === idProducto);
+            if (!p) return;
+
+            if (isNaN(cantidadAAgregar) || cantidadAAgregar <= 0 || cantidadAAgregar > p.stock) {
+                mostrarNotificacion(`Cantidad inválida. Máximo disponible: ${p.stock}`, 'error');
+                return;
+            }
+
+            // Ejecutamos la inserción en tu archivo cartEngine.js
+            const exito = agregarAlCarrito(idProducto, cantidadAAgregar);
+
+            if (exito) {
+                // DISMINUIR STOCK REAL Y VISUAL INMEDIATAMENTE
+                p.stock -= cantidadAAgregar; 
+                const textoStock = document.getElementById(`stock-text-${idProducto}`);
+                if (textoStock) textoStock.innerText = `Stock disponible: ${p.stock}`;
+
+                // Modificar el botón temporalmente (Efecto Farmatodo)
+                const textoOriginal = boton.innerText;
+                boton.classList.add('btn-agregado');
+                boton.innerText = `¡AGREGADO (${cantidadAAgregar})! ✓`;
+
+                mostrarNotificacion(`Se añadieron (${cantidadAAgregar}) artículos al carrito`, 'success');
+
+                // Si se agotó el stock por completo, desactivamos el botón
+                if (p.stock === 0) {
+                    boton.disabled = true;
+                    boton.innerText = 'SIN STOCK';
+                    if (inputCantidad) inputCantidad.parentElement.remove();
+                } else if (inputCantidad) {
+                    inputCantidad.max = p.stock;
+                    inputCantidad.value = "1";
                 }
 
-                // --- CONEXIÓN DIRECTA CON TU MOTOR (cartEngine.js) ---
-                // Llamamos a la función enviándole el ID numérico y el valor de la caja de cantidad
-                const exito = agregarAlCarrito(idProducto, cantidadAAgregar);
+                actualizarInterfaz();
 
-                if (exito) {
-                    const textoOriginal = boton.innerText;
-                    boton.classList.add('btn-agregado');
-                    boton.innerText = `¡AGREGADO (${cantidadAAgregar})! ✓`;
-
-                    mostrarNotificacion(`Se añadieron (${cantidadAAgregar}) artículos al carrito con éxito`, 'success');
-
-                    // Actualizar la interfaz global de totales
-                    actualizarInterfaz();
-
-                    setTimeout(() => {
+                setTimeout(() => {
+                    if (p.stock > 0) {
                         boton.classList.remove('btn-agregado');
                         boton.innerText = textoOriginal;
-                        if(inputCantidad) inputCantidad.value = "1"; // Resetea el contador a 1
-                    }, 1500);
-                }
-            });
+                    }
+                }, 1500);
+            }
         });
-    }, 50);
+    });
 }
 
 export function actualizarInterfaz() {
@@ -128,4 +139,4 @@ export function actualizarInterfaz() {
 
     if(subElem) subElem.innerText = `$${subtotal.toFixed(2)}`;
     if(totElem) totElem.innerText = `$${(subtotal - desc).toFixed(2)}`;
-} 
+}
